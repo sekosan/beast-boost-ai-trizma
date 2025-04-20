@@ -62,10 +62,20 @@ const Auth = () => {
   const handleGoogleLogin = async () => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signInWithOAuth({
+      
+      // Tam site URL'sini al (geliştirme veya üretim ortamı)
+      const redirectUrl = window.location.origin;
+      console.log("Google yönlendirme URL'si:", redirectUrl);
+      
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: window.location.origin,
+          redirectTo: redirectUrl,
+          // Ek bilgiler
+          queryParams: {
+            access_type: 'offline', // Yenileme token'ı almak için
+            prompt: 'select_account', // Kullanıcıya hesap seçtir
+          },
         },
       });
       
