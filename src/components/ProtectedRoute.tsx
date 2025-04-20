@@ -13,3 +13,4 @@ export const ProtectedRoute = ({ user }: ProtectedRouteProps) => {
 
   return <Outlet />;
 };
+

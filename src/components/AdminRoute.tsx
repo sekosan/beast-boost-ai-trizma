@@ -39,3 +39,4 @@ export const AdminRoute = ({ user }: AdminRouteProps) => {
 
   return <Outlet />;
 };
+
