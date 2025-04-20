@@ -63,18 +63,16 @@ const Auth = () => {
     try {
       setLoading(true);
       
-      // Yönlendirme URL'sini açıkça tanımlayalım
-      // URL'yi tam olarak Google Cloud Console'da tanımladığınız şekilde yapılandırın
-      // Geliştirme ortamında localhost:5173 veya canlıda domain adınız olabilir
-      const origin = window.location.origin;
-      const redirectUrl = `${origin}`;
+      // Uygulama çalıştığı gerçek portu algılayarak doğru URL'yi oluştur
+      // URL'yi tam olarak Google Cloud Console'da yapılandırılmış URL ile eşleşecek şekilde ayarla
+      const appUrl = window.location.origin;
       
-      console.log("Google yönlendirme URL'si:", redirectUrl);
+      console.log("Google yönlendirme URL'si:", appUrl);
       
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: redirectUrl,
+          redirectTo: appUrl,
           queryParams: {
             access_type: 'offline',
             prompt: 'select_account',
