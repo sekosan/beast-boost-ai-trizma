@@ -61,22 +61,31 @@ const Auth = () => {
 
   const handleGoogleLogin = async () => {
     try {
+      setLoading(true);
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          },
+          redirectTo: window.location.origin,
         },
       });
-      if (error) throw error;
+      
+      if (error) {
+        console.error("Google login error:", error);
+        toast({
+          variant: "destructive",
+          title: "Hata!",
+          description: `Google ile giriş yaparken bir sorun oluştu: ${error.message}`,
+        });
+      }
     } catch (error: any) {
+      console.error("Google login catch block:", error);
       toast({
         variant: "destructive",
         title: "Hata!",
         description: "Google ile giriş yaparken bir sorun oluştu",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
