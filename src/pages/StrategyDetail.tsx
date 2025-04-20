@@ -1,11 +1,11 @@
-
 import { useParams, Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronLeft, BookOpen, CheckCircle, Info } from "lucide-react";
+import { ChevronLeft, BookOpen, CheckCircle, Info, MousePointer } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const strategies = {
   "metrik-takibi": {
@@ -252,29 +252,45 @@ const StrategyDetail = () => {
             <div>
               <Card>
                 <CardHeader>
-                  <CardTitle>Hızlı İpuçları</CardTitle>
+                  <CardTitle className="flex items-center">
+                    <Info className="mr-2 h-5 w-5 text-beast-blue" />
+                    Hızlı İpuçları
+                  </CardTitle>
                   <CardDescription>Bu stratejiyi uygulamanıza yardımcı olacak ipuçları</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex items-start">
-                      <div className="h-8 w-8 rounded-full flex items-center justify-center mr-3 bg-beast-blue/10 text-beast-blue flex-shrink-0">
-                        1
-                      </div>
-                      <p className="text-sm">MrBeast ekibi en temel metrikleri bile ayrıntılı olarak analiz eder ve zaman içindeki değişimleri izler.</p>
-                    </div>
-                    <div className="flex items-start">
-                      <div className="h-8 w-8 rounded-full flex items-center justify-center mr-3 bg-beast-green/10 text-beast-green flex-shrink-0">
-                        2
-                      </div>
-                      <p className="text-sm">Her yeni video için önceki videolarınızın performansını analiz edin ve başarılı olanların ortak noktalarını belirleyin.</p>
-                    </div>
-                    <div className="flex items-start">
-                      <div className="h-8 w-8 rounded-full flex items-center justify-center mr-3 bg-beast-yellow/10 text-beast-yellow flex-shrink-0">
-                        3
-                      </div>
-                      <p className="text-sm">Niş kategorinizdeki diğer kanallarla kıyaslama yaparak benchmark değerler belirleyin.</p>
-                    </div>
+                    {[
+                      { 
+                        text: "MrBeast ekibi en temel metrikleri bile ayrıntılı olarak analiz eder ve zaman içindeki değişimleri izler.",
+                        color: "beast-blue"
+                      },
+                      { 
+                        text: "Her yeni video için önceki videolarınızın performansını analiz edin ve başarılı olanların ortak noktalarını belirleyin.",
+                        color: "beast-green"
+                      },
+                      { 
+                        text: "Niş kategorinizdeki diğer kanallarla kıyaslama yaparak benchmark değerler belirleyin.",
+                        color: "beast-yellow"
+                      }
+                    ].map((tip, index) => (
+                      <TooltipProvider key={index}>
+                        <Tooltip>
+                          <TooltipTrigger className="w-full">
+                            <div className="flex items-start cursor-help hover:bg-muted/50 p-2 rounded-lg transition-colors">
+                              <div className={`h-8 w-8 rounded-full flex items-center justify-center mr-3 bg-${tip.color}/10 text-${tip.color} flex-shrink-0`}>
+                                {index + 1}
+                              </div>
+                              <p className="text-sm text-left">{tip.text}</p>
+                              <MousePointer className="ml-2 h-4 w-4 text-muted-foreground opacity-50" />
+                            </div>
+                          </TooltipTrigger>
+                          <TooltipContent side="right">
+                            <p>Detaylı bilgi için tıklayın</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    ))}
                   </div>
 
                   <div className="bg-muted p-4 rounded-lg mt-6">
@@ -294,18 +310,41 @@ const StrategyDetail = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <Link to="/stratejiler/thumbnail-analizi" className="block p-3 rounded-lg hover:bg-muted">
-                      <h4 className="font-medium">Thumbnail Analizi</h4>
-                      <p className="text-sm text-muted-foreground mt-1">Dikkat çekici ve etkili thumbnail'ler oluşturma</p>
-                    </Link>
-                    <Link to="/stratejiler/baslik-optimizasyonu" className="block p-3 rounded-lg hover:bg-muted">
-                      <h4 className="font-medium">Başlık Optimizasyonu</h4>
-                      <p className="text-sm text-muted-foreground mt-1">Yüksek tıklanma oranı sağlayan başlıklar oluşturma</p>
-                    </Link>
-                    <Link to="/stratejiler/izleyici-davranisi" className="block p-3 rounded-lg hover:bg-muted">
-                      <h4 className="font-medium">İzleyici Davranışı Analizi</h4>
-                      <p className="text-sm text-muted-foreground mt-1">İzleyici düşüş noktalarını belirleme</p>
-                    </Link>
+                    {[
+                      { 
+                        title: "Thumbnail Analizi", 
+                        description: "Dikkat çekici ve etkili thumbnail'ler oluşturma",
+                        link: "/stratejiler/thumbnail-analizi"
+                      },
+                      { 
+                        title: "Başlık Optimizasyonu", 
+                        description: "Yüksek tıklanma oranı sağlayan başlıklar oluşturma",
+                        link: "/stratejiler/baslik-optimizasyonu"
+                      },
+                      { 
+                        title: "İzleyici Davranışı Analizi", 
+                        description: "İzleyici düşüş noktalarını belirleme",
+                        link: "/stratejiler/izleyici-davranisi"
+                      }
+                    ].map((relatedStrategy, index) => (
+                      <Link 
+                        key={index} 
+                        to={relatedStrategy.link} 
+                        className="block p-3 rounded-lg hover:bg-muted transition-colors group"
+                      >
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-medium group-hover:text-beast-blue transition-colors">
+                              {relatedStrategy.title}
+                            </h4>
+                            <p className="text-sm text-muted-foreground mt-1">
+                              {relatedStrategy.description}
+                            </p>
+                          </div>
+                          <ChevronLeft className="h-4 w-4 text-muted-foreground rotate-180 group-hover:text-beast-blue transition-all" />
+                        </div>
+                      </Link>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
