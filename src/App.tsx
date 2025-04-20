@@ -24,17 +24,21 @@ const App = () => {
     // Mevcut oturumu kontrol et
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      console.log("Auth session check:", session?.user ? "User logged in" : "No user");
     });
 
     // Auth state değişikliklerini dinle
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_, session) => {
+      (event, session) => {
+        console.log("Auth state change:", event, session?.user?.email);
         setUser(session?.user ?? null);
       }
     );
 
     return () => subscription.unsubscribe();
   }, []);
+
+  console.log("Current user state:", user ? "Logged in" : "Not logged in");
 
   return (
     <QueryClientProvider client={queryClient}>

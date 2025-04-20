@@ -63,8 +63,7 @@ const Auth = () => {
     try {
       setLoading(true);
       
-      // Uygulama çalıştığı gerçek portu algılayarak doğru URL'yi oluştur
-      // URL'yi tam olarak Google Cloud Console'da yapılandırılmış URL ile eşleşecek şekilde ayarla
+      // Ensure the redirect URL matches what's configured in Google Cloud Console
       const appUrl = window.location.origin;
       
       console.log("Google yönlendirme URL'si:", appUrl);
