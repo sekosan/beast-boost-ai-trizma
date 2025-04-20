@@ -1,8 +1,15 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 
 export function Header() {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/auth");
+  };
+
   return (
     <header className="border-b">
       <div className="container flex h-16 items-center justify-between">
@@ -29,8 +36,15 @@ export function Header() {
           </Link>
         </nav>
         <div className="flex items-center gap-4">
-          <Button variant="outline">Giriş Yap</Button>
-          <Button className="bg-youtube-red hover:bg-youtube-red/90">Başla</Button>
+          <Button variant="outline" onClick={handleLogin}>
+            Giriş Yap
+          </Button>
+          <Button 
+            onClick={handleLogin}
+            className="bg-youtube-red hover:bg-youtube-red/90"
+          >
+            Başla
+          </Button>
         </div>
       </div>
     </header>

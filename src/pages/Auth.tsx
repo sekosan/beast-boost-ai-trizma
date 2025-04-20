@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import { Icons } from "@/components/ui/icons";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -58,6 +59,27 @@ const Auth = () => {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
+        },
+      });
+      if (error) throw error;
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Hata!",
+        description: "Google ile giriş yaparken bir sorun oluştu",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/50 p-4">
       <Card className="w-full max-w-md">
@@ -70,66 +92,89 @@ const Auth = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {isSignUp && (
+          <div className="grid gap-6">
+            <Button 
+              variant="outline" 
+              onClick={handleGoogleLogin}
+              className="w-full"
+              disabled={loading}
+            >
+              <Icons.google className="mr-2 h-4 w-4" />
+              Google ile {isSignUp ? "Kayıt Ol" : "Giriş Yap"}
+            </Button>
+            
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Ya da email ile devam et
+                </span>
+              </div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {isSignUp && (
+                <div className="space-y-2">
+                  <label htmlFor="username" className="text-sm font-medium">
+                    Kullanıcı Adı
+                  </label>
+                  <Input
+                    id="username"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required={isSignUp}
+                    placeholder="mrbeaster42"
+                  />
+                </div>
+              )}
               <div className="space-y-2">
-                <label htmlFor="username" className="text-sm font-medium">
-                  Kullanıcı Adı
+                <label htmlFor="email" className="text-sm font-medium">
+                  Email
                 </label>
                 <Input
-                  id="username"
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required={isSignUp}
-                  placeholder="mrbeaster42"
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  placeholder="mrbeast@youtube.com"
                 />
               </div>
-            )}
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">
-                Email
-              </label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="mrbeast@youtube.com"
-              />
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="password" className="text-sm font-medium">
-                Şifre
-              </label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                placeholder="********"
-              />
-            </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading 
-                ? "Bekle biraz..." 
-                : isSignUp 
-                  ? "Kayıt Ol" 
-                  : "Giriş Yap"}
-            </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              className="w-full"
-              onClick={() => setIsSignUp(!isSignUp)}
-            >
-              {isSignUp 
-                ? "Zaten hesabın var mı? Giriş yap" 
-                : "Hesabın yok mu? Kayıt ol"}
-            </Button>
-          </form>
+              <div className="space-y-2">
+                <label htmlFor="password" className="text-sm font-medium">
+                  Şifre
+                </label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  placeholder="********"
+                />
+              </div>
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading 
+                  ? "Bekle biraz..." 
+                  : isSignUp 
+                    ? "Kayıt Ol" 
+                    : "Giriş Yap"}
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                className="w-full"
+                onClick={() => setIsSignUp(!isSignUp)}
+              >
+                {isSignUp 
+                  ? "Zaten hesabın var mı? Giriş yap" 
+                  : "Hesabın yok mu? Kayıt ol"}
+              </Button>
+            </form>
+          </div>
         </CardContent>
       </Card>
     </div>
