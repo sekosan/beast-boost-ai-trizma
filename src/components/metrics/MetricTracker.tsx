@@ -2,7 +2,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MetricCard } from "@/components/ui/metric-card";
-import { ChartBar, Star, Users, Activity } from "lucide-react";
+import { ChartBar, Star, Users, Activity, TrendingUp } from "lucide-react";
 import { useState } from "react";
 import { VideoMetrics, ChannelMetrics } from "@/types/metrics";
 
@@ -13,6 +13,31 @@ const mockChannelMetrics: ChannelMetrics = {
   averageRetention: 45,
   lastUpdated: new Date().toISOString(),
 };
+
+const mockVideoMetrics: VideoMetrics[] = [
+  {
+    id: "1",
+    title: "Influencer'lara 100.000 TL Dağıttım!",
+    views: 850000,
+    ctr: 6.2,
+    averageViewDuration: 8.5,
+    retentionRate: 52,
+    likes: 45000,
+    comments: 3200,
+    publishDate: "2024-04-15",
+  },
+  {
+    id: "2",
+    title: "24 Saat Boyunca Yemek Yaptım",
+    views: 620000,
+    ctr: 5.8,
+    averageViewDuration: 7.2,
+    retentionRate: 48,
+    likes: 32000,
+    comments: 2800,
+    publishDate: "2024-04-10",
+  },
+];
 
 export function MetricTracker() {
   const [activeTab, setActiveTab] = useState("channel");
@@ -60,8 +85,33 @@ export function MetricTracker() {
           </TabsContent>
 
           <TabsContent value="videos">
-            <div className="text-center p-8 text-muted-foreground">
-              <p>Video metrikleri yakında eklenecek</p>
+            <div className="rounded-md border">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b bg-muted/50">
+                    <th className="py-3 px-4 text-left">Video Başlığı</th>
+                    <th className="py-3 px-4 text-left">İzlenme</th>
+                    <th className="py-3 px-4 text-left">CTR</th>
+                    <th className="py-3 px-4 text-left">Ort. İzlenme</th>
+                    <th className="py-3 px-4 text-left">İzleyici Tutma</th>
+                    <th className="py-3 px-4 text-left">Beğeni</th>
+                    <th className="py-3 px-4 text-left">Yorum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {mockVideoMetrics.map((video) => (
+                    <tr key={video.id} className="border-b">
+                      <td className="py-3 px-4 font-medium">{video.title}</td>
+                      <td className="py-3 px-4">{video.views.toLocaleString()}</td>
+                      <td className="py-3 px-4">%{video.ctr}</td>
+                      <td className="py-3 px-4">{video.averageViewDuration} dk</td>
+                      <td className="py-3 px-4">%{video.retentionRate}</td>
+                      <td className="py-3 px-4">{video.likes.toLocaleString()}</td>
+                      <td className="py-3 px-4">{video.comments.toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </TabsContent>
         </Tabs>
