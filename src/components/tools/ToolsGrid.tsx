@@ -15,7 +15,7 @@ const basicTools = [
       "Performans karşılaştırmaları",
       "Özelleştirilebilir panolar",
     ],
-    status: "active",
+    status: "active" as const,
   },
   {
     title: "Metrik Grafikleyici",
@@ -27,7 +27,7 @@ const basicTools = [
       "İhraç edilebilir raporlar",
       "Özel zaman aralıkları",
     ],
-    status: "active",
+    status: "active" as const,
   },
   {
     title: "Strateji Bilgi Bankası",
@@ -39,7 +39,7 @@ const basicTools = [
       "Örnek vaka analizleri",
       "İndirilebilir kılavuzlar",
     ],
-    status: "active",
+    status: "active" as const,
   },
 ];
 
