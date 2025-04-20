@@ -63,36 +63,39 @@ const Auth = () => {
     try {
       setLoading(true);
       
-      // Tam site URL'sini al (geliştirme veya üretim ortamı)
-      const redirectUrl = window.location.origin;
+      // Yönlendirme URL'sini açıkça tanımlayalım
+      // URL'yi tam olarak Google Cloud Console'da tanımladığınız şekilde yapılandırın
+      // Geliştirme ortamında localhost:5173 veya canlıda domain adınız olabilir
+      const origin = window.location.origin;
+      const redirectUrl = `${origin}`;
+      
       console.log("Google yönlendirme URL'si:", redirectUrl);
       
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo: redirectUrl,
-          // Ek bilgiler
           queryParams: {
-            access_type: 'offline', // Yenileme token'ı almak için
-            prompt: 'select_account', // Kullanıcıya hesap seçtir
+            access_type: 'offline',
+            prompt: 'select_account',
           },
         },
       });
       
       if (error) {
-        console.error("Google login error:", error);
+        console.error("Google giriş hatası:", error);
         toast({
           variant: "destructive",
-          title: "Hata!",
-          description: `Google ile giriş yaparken bir sorun oluştu: ${error.message}`,
+          title: "Giriş Hatası!",
+          description: `Google ile giriş yapılırken bir sorun oluştu: ${error.message}`,
         });
       }
     } catch (error: any) {
-      console.error("Google login catch block:", error);
+      console.error("Google giriş catch bloğu:", error);
       toast({
         variant: "destructive",
         title: "Hata!",
-        description: "Google ile giriş yaparken bir sorun oluştu",
+        description: "Google ile giriş yapılırken beklenmeyen bir sorun oluştu",
       });
     } finally {
       setLoading(false);
