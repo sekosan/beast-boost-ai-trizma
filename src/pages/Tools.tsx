@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LineChart, BarChart, PieChart, Camera, Star, Eye, TrendingUp, Users, Zap, Settings, Compass, Lock } from "lucide-react";
+import { MetricTracker } from "@/components/metrics/MetricTracker";
 
 const Tools = () => {
   return (
