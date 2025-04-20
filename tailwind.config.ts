@@ -52,6 +52,17 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				youtube: {
+					red: '#FF0000',
+					dark: '#282828'
+				},
+				beast: {
+					blue: '#00A3FF',
+					darkblue: '#0076B8',
+					green: '#00FF85',
+					darkgreen: '#00CC6A',
+					yellow: '#FFCC00'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
