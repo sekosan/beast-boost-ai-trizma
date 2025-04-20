@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -62,16 +61,10 @@ const Auth = () => {
   const handleGoogleLogin = async () => {
     try {
       setLoading(true);
-      
-      // Ensure the redirect URL matches what's configured in Google Cloud Console
-      const appUrl = window.location.origin;
-      
-      console.log("Google yönlendirme URL'si:", appUrl);
-      
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: appUrl,
+          redirectTo: `${window.location.origin}/auth`,
           queryParams: {
             access_type: 'offline',
             prompt: 'select_account',
@@ -80,7 +73,7 @@ const Auth = () => {
       });
       
       if (error) {
-        console.error("Google giriş hatası:", error);
+        console.error("Google login error:", error);
         toast({
           variant: "destructive",
           title: "Giriş Hatası!",
@@ -88,7 +81,7 @@ const Auth = () => {
         });
       }
     } catch (error: any) {
-      console.error("Google giriş catch bloğu:", error);
+      console.error("Google login catch block:", error);
       toast({
         variant: "destructive",
         title: "Hata!",
