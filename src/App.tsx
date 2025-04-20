@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,6 +9,7 @@ import StrategyDetail from "./pages/StrategyDetail";
 import Education from "./pages/Education";
 import Tools from "./pages/Tools";
 import NotFound from "./pages/NotFound";
+import Dashboard from "./pages/admin/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -33,7 +33,7 @@ const App = () => {
             <Route path="/stratejiler/:strategyId" element={<StrategyDetail />} />
             <Route path="/egitim" element={<Education />} />
             <Route path="/araclar" element={<Tools />} />
-            <Route path="/admin" element={<div>Admin Panel</div>} />
+            <Route path="/admin" element={<Dashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
