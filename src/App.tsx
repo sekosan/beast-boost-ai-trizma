@@ -1,9 +1,14 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { User } from "@supabase/supabase-js";
 import Index from "./pages/Index";
+import Auth from "./pages/Auth";
 import Strategies from "./pages/Strategies";
 import StrategyDetail from "./pages/StrategyDetail";
 import Education from "./pages/Education";
@@ -12,24 +17,62 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/stratejiler" element={<Strategies />} />
-          <Route path="/stratejiler/:strategyId" element={<StrategyDetail />} />
-          <Route path="/egitim" element={<Education />} />
-          <Route path="/araclar" element={<Tools />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    // Mevcut oturumu kontrol et
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Auth state değişikliklerini dinle
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route 
+              path="/auth" 
+              element={user ? <Navigate to="/" /> : <Auth />} 
+            />
+            <Route 
+              path="/" 
+              element={user ? <Index /> : <Navigate to="/auth" />} 
+            />
+            <Route 
+              path="/stratejiler" 
+              element={user ? <Strategies /> : <Navigate to="/auth" />} 
+            />
+            <Route 
+              path="/stratejiler/:strategyId" 
+              element={user ? <StrategyDetail /> : <Navigate to="/auth" />} 
+            />
+            <Route 
+              path="/egitim" 
+              element={user ? <Education /> : <Navigate to="/auth" />} 
+            />
+            <Route 
+              path="/araclar" 
+              element={user ? <Tools /> : <Navigate to="/auth" />} 
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

@@ -9,30 +9,30 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      tasks: {
+      profiles: {
         Row: {
-          created_at: string
-          description: string | null
+          avatar_url: string | null
+          created_at: string | null
+          full_name: string | null
           id: string
-          is_completed: boolean
-          title: string
-          updated_at: string
+          updated_at: string | null
+          username: string | null
         }
         Insert: {
-          created_at?: string
-          description?: string | null
-          id?: string
-          is_completed?: boolean
-          title: string
-          updated_at?: string
+          avatar_url?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string | null
+          username?: string | null
         }
         Update: {
-          created_at?: string
-          description?: string | null
+          avatar_url?: string | null
+          created_at?: string | null
+          full_name?: string | null
           id?: string
-          is_completed?: boolean
-          title?: string
-          updated_at?: string
+          updated_at?: string | null
+          username?: string | null
         }
         Relationships: []
       }
