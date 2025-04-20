@@ -1,4 +1,3 @@
-
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -27,90 +26,93 @@ const Tools = () => {
               <TabsTrigger value="analiz">Analiz</TabsTrigger>
             </TabsList>
             <TabsContent value="temel" className="mt-6">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <Card>
-                  <CardHeader>
-                    <div className="flex justify-between items-center">
-                      <div className="p-2 bg-beast-blue rounded-md">
-                        <LineChart className="h-6 w-6 text-white" />
+              <div className="space-y-6">
+                <MetricTracker />
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <Card>
+                    <CardHeader>
+                      <div className="flex justify-between items-center">
+                        <div className="p-2 bg-beast-blue rounded-md">
+                          <LineChart className="h-6 w-6 text-white" />
+                        </div>
+                        <Badge>Aktif</Badge>
                       </div>
-                      <Badge>Aktif</Badge>
-                    </div>
-                    <CardTitle className="mt-4">Temel Metrik İzleyici</CardTitle>
-                    <CardDescription>
-                      Kanalınızın CTR, AVD ve AVP gibi temel metriklerini takip edin.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-sm text-muted-foreground">
-                      <ul className="space-y-2">
-                        <li>• YouTube Analytics bağlantısı</li>
-                        <li>• Metrik trend analizi</li>
-                        <li>• Performans karşılaştırmaları</li>
-                        <li>• Özelleştirilebilir panolar</li>
-                      </ul>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button className="w-full">Araca Eriş</Button>
-                  </CardFooter>
-                </Card>
+                      <CardTitle className="mt-4">Temel Metrik İzleyici</CardTitle>
+                      <CardDescription>
+                        Kanalınızın CTR, AVD ve AVP gibi temel metriklerini takip edin.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-sm text-muted-foreground">
+                        <ul className="space-y-2">
+                          <li>• YouTube Analytics bağlantısı</li>
+                          <li>• Metrik trend analizi</li>
+                          <li>• Performans karşılaştırmaları</li>
+                          <li>• Özelleştirilebilir panolar</li>
+                        </ul>
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      <Button className="w-full">Araca Eriş</Button>
+                    </CardFooter>
+                  </Card>
 
-                <Card>
-                  <CardHeader>
-                    <div className="flex justify-between items-center">
-                      <div className="p-2 bg-beast-green rounded-md">
-                        <BarChart className="h-6 w-6 text-white" />
+                  <Card>
+                    <CardHeader>
+                      <div className="flex justify-between items-center">
+                        <div className="p-2 bg-beast-green rounded-md">
+                          <BarChart className="h-6 w-6 text-white" />
+                        </div>
+                        <Badge>Aktif</Badge>
                       </div>
-                      <Badge>Aktif</Badge>
-                    </div>
-                    <CardTitle className="mt-4">Metrik Grafikleyici</CardTitle>
-                    <CardDescription>
-                      Metriklerinizi zaman içinde gösteren anlaşılır grafikler oluşturun.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-sm text-muted-foreground">
-                      <ul className="space-y-2">
-                        <li>• İnteraktif zaman serisi grafikleri</li>
-                        <li>• Çoklu metrik karşılaştırma</li>
-                        <li>• İhraç edilebilir raporlar</li>
-                        <li>• Özel zaman aralıkları</li>
-                      </ul>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button className="w-full">Araca Eriş</Button>
-                  </CardFooter>
-                </Card>
+                      <CardTitle className="mt-4">Metrik Grafikleyici</CardTitle>
+                      <CardDescription>
+                        Metriklerinizi zaman içinde gösteren anlaşılır grafikler oluşturun.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-sm text-muted-foreground">
+                        <ul className="space-y-2">
+                          <li>• İnteraktif zaman serisi grafikleri</li>
+                          <li>• Çoklu metrik karşılaştırma</li>
+                          <li>• İhraç edilebilir raporlar</li>
+                          <li>• Özel zaman aralıkları</li>
+                        </ul>
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      <Button className="w-full">Araca Eriş</Button>
+                    </CardFooter>
+                  </Card>
 
-                <Card>
-                  <CardHeader>
-                    <div className="flex justify-between items-center">
-                      <div className="p-2 bg-beast-yellow rounded-md">
-                        <PieChart className="h-6 w-6 text-white" />
+                  <Card>
+                    <CardHeader>
+                      <div className="flex justify-between items-center">
+                        <div className="p-2 bg-beast-yellow rounded-md">
+                          <PieChart className="h-6 w-6 text-white" />
+                        </div>
+                        <Badge>Aktif</Badge>
                       </div>
-                      <Badge>Aktif</Badge>
-                    </div>
-                    <CardTitle className="mt-4">Strateji Bilgi Bankası</CardTitle>
-                    <CardDescription>
-                      MrBeast stratejileri ve prensipleri hakkında kapsamlı bilgiler.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-sm text-muted-foreground">
-                      <ul className="space-y-2">
-                        <li>• Detaylı strateji açıklamaları</li>
-                        <li>• Uygulama adımları</li>
-                        <li>• Örnek vaka analizleri</li>
-                        <li>• İndirilebilir kılavuzlar</li>
-                      </ul>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button className="w-full">Araca Eriş</Button>
-                  </CardFooter>
-                </Card>
+                      <CardTitle className="mt-4">Strateji Bilgi Bankası</CardTitle>
+                      <CardDescription>
+                        MrBeast stratejileri ve prensipleri hakkında kapsamlı bilgiler.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-sm text-muted-foreground">
+                        <ul className="space-y-2">
+                          <li>• Detaylı strateji açıklamaları</li>
+                          <li>• Uygulama adımları</li>
+                          <li>• Örnek vaka analizleri</li>
+                          <li>• İndirilebilir kılavuzlar</li>
+                        </ul>
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      <Button className="w-full">Araca Eriş</Button>
+                    </CardFooter>
+                  </Card>
+                </div>
               </div>
             </TabsContent>
             <TabsContent value="optimizasyon" className="mt-6">
