@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { MetricCard } from "@/components/ui/metric-card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
 import { Progress } from "@/components/ui/progress";
 import { ChartBar, Target, Gauge } from "lucide-react";
 
@@ -75,9 +75,7 @@ export default function Dashboard() {
                   <AreaChart data={performanceData}>
                     <XAxis dataKey="date" />
                     <YAxis />
-                    <ChartTooltip>
-                      <ChartTooltipContent />
-                    </ChartTooltip>
+                    <Tooltip content={<ChartTooltipContent />} />
                     <Area
                       type="monotone"
                       dataKey="value"
