@@ -1,11 +1,13 @@
+
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { MetricTracker } from "@/components/metrics/MetricTracker";
+import { MetricVisualizer } from "@/components/metrics/MetricVisualizer";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LineChart, BarChart, PieChart, Camera, Star, Eye, TrendingUp, Users, Zap, Settings, Compass, Lock } from "lucide-react";
-import { MetricTracker } from "@/components/metrics/MetricTracker";
 
 const Tools = () => {
   return (
@@ -18,6 +20,11 @@ const Tools = () => {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               MrBeast stratejilerini kanalınıza uygulamanıza yardımcı olacak özel geliştirilen araçlar.
             </p>
+          </div>
+
+          <div className="space-y-8 mb-12">
+            <MetricTracker />
+            <MetricVisualizer />
           </div>
 
           <Tabs defaultValue="temel" className="mb-12">
